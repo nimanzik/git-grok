@@ -2,6 +2,7 @@
 
 A conversational Q&A agent that answers questions about a GitHub repository.
 
+> [!NOTE]
 > This project is a work in progress and not yet complete.
 
 ## Overview
