@@ -36,10 +36,10 @@ def create_fake_zip_bytes(files: dict[str, str]) -> bytes:
 @pytest.fixture
 def mock_requests_get(mocker: MockerFixture) -> MockerFixture:
     """Mock requests.get for GitHub ZIP downloads."""
-    return mocker.patch("repo_sage.ingestion.requests.get")
+    return mocker.patch("repo_sage.ingestion.github.requests.get")
 
 
 @pytest.fixture
 def mock_genai_client(mocker: MockerFixture) -> MockerFixture:
     """Mock the genai client for LLM calls."""
-    return mocker.patch("repo_sage.ingestion.client")
+    return mocker.patch("repo_sage.ingestion.chunking.get_genai_client")

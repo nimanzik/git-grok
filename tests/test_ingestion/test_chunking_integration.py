@@ -1,50 +1,24 @@
-"""Integration tests for the ingestion module.
+"""Integration tests for the chunking module.
 
-These tests hit real external services (GitHub, Google Gemini).
+These tests hit real external services (Google Gemini).
 
 Requirements:
     - Network access
-    - GEMINI_API_KEY environment variable set (for Gemini tests)
+    - GEMINI_API_KEY environment variable set
 
 Run with:
-    uv run pytest tests/integration/ -m integration -v
+    uv run pytest tests/test_ingestion/ -m integration -v
 To skip them:
-    uv run pytest tests/integration/ -m "not integration" -v
+    uv run pytest tests/test_ingestion/ -m "not integration" -v
 """
 
 import os
 
 import pytest
 
-from repo_sage.ingestion import chunk_document, read_repo_markdown_files
+from repo_sage.ingestion.chunking import chunk_document
 
 pytestmark = pytest.mark.integration
-
-
-class TestReadRepoMarkdownFilesIntegration:
-    """Integration tests for read_repo_markdown_files against real GitHub."""
-
-    def test_downloads_and_parses_real_repo(self) -> None:
-        """Downloads markdown files from a real GitHub repository."""
-        result = read_repo_markdown_files("DataTalksClub", "faq")
-
-        assert len(result) > 0
-        assert all("filename" in doc for doc in result)
-        assert all("content" in doc for doc in result)
-
-    def test_downloads_with_custom_branch(self) -> None:
-        """Downloads from a specific branch."""
-        result = read_repo_markdown_files("evidentlyai", "evidently", branch="main")
-
-        assert len(result) > 0
-
-    def test_raises_error_for_nonexistent_repo(self) -> None:
-        """Raises RuntimeError for a repository that does not exist."""
-        with pytest.raises(RuntimeError, match="Failed to download repository"):
-            read_repo_markdown_files(
-                "this-owner-does-not-exist-12345",
-                "this-repo-does-not-exist-67890",
-            )
 
 
 class TestChunkDocumentIntegration:
