@@ -11,14 +11,14 @@ from ..utils.logging import get_logger
 logger = get_logger(__name__, level="info")
 
 
-@lru_cache(maxsize=32)
-def get_embedding_model(model_id: str) -> SentenceTransformer:
+@lru_cache(maxsize=8)
+def _get_embedding_model(model_id: str) -> SentenceTransformer:
     """Load and cache the sentence transformer model."""
     return SentenceTransformer(model_id, model_kwargs={"torch_dtype": "float16"})
 
 
 @lru_cache(maxsize=32)
-def get_qdrant_client(path: str) -> QdrantClient:
+def _get_qdrant_client(path: str) -> QdrantClient:
     """Get or create a Qdrant client with local file persistence."""
     return QdrantClient(path=path)
 
@@ -38,14 +38,14 @@ class QdrantEngine:
     def client(self) -> QdrantClient:
         if self._client is None:
             logger.info("Creating Qdrant client")
-            self._client = get_qdrant_client(self.path)
+            self._client = _get_qdrant_client(self.path)
         return self._client
 
     @property
     def embedding_model(self) -> SentenceTransformer:
         if self._embedding_model is None:
             logger.info("Loading embedding model")
-            self._embedding_model = get_embedding_model(self.model_id)
+            self._embedding_model = _get_embedding_model(self.model_id)
         return self._embedding_model
 
     def _ensure_collection(self) -> None:
