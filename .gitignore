@@ -12,4 +12,8 @@
 # direnv file
 **/.envrc
 
+# Temporary or scratch directories
 **/_spielwiese
+
+# IDE directories
+.vscode/
