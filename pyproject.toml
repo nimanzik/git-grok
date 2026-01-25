@@ -1,5 +1,5 @@
 [project]
-name = "repo-sage"
+name = "git-grok"
 version = "0.1.0"
 description = "A simple Q&A agent that can answer questions about a GitHub repository"
 readme = "README.md"
@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.scripts]
-repo-qa-agent = "repo_sage:main"
+git-grok = "git_grok:main"
 
 [build-system]
 requires = ["uv_build>=0.9.25,<0.10.0"]
