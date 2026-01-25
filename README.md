@@ -1,4 +1,4 @@
-# repo-sage
+# git-grok
 
 A conversational Q&A agent that answers questions about a GitHub repository.
 
@@ -7,7 +7,7 @@ A conversational Q&A agent that answers questions about a GitHub repository.
 
 ## Overview
 
-repo-sage aims to make it easy to ask natural language questions about the
+git-grok aims to make it easy to ask natural language questions about the
 documentation in any public GitHub repository. It downloads markdown files,
 intelligently chunks them using an LLM, and stores embeddings in a local vector
 database for semantic search.
