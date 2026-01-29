@@ -14,10 +14,16 @@ if TYPE_CHECKING:
 
 
 STATIC_INSTRUCTION = """
-You are a knowledgeable documentation assistant.
-Answer questions by searching first and finding the most relevant content.
-Cite filenames for all referenced sources.
-If no results match, say so and offer general guidance.
+You are a helpful assistant that answers questions about documentations of a codebase.
+
+Before answering, use the provided search tool first to find relevant content.
+
+Use the search results to provide accurate and concise answers.
+
+If the search results do not contain relevant information, say so explicitly and
+and provide a general guidance instead.
+
+Always cite the file names from which you obtained the information in your answer.
 """
 
 
@@ -51,6 +57,7 @@ def create_search_agent(model_id: str | None = None) -> Agent:
     model_id = model_id or f"google-gla:{DEFAULT_GEMINI_MODEL_ID}"
     return Agent(
         model_id,
+        name="doc-search-agent",
         deps_type=SearchDependencies,
         instructions=STATIC_INSTRUCTION,
         tools=[Tool(search_tool, takes_ctx=True)],
